@@ -1,7 +1,15 @@
-import type { NextConfig } from "next";
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "covers.openlibrary.org",
+      },
+    ],
 
-const nextConfig: NextConfig = {
-  /* config options here */
+    dangerouslyAllowLocalIP: true,
+  },
 };
 
 export default nextConfig;
