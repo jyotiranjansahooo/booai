@@ -1,9 +1,9 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Upload, ImageIcon } from 'lucide-react';
+import { Upload, ImageIcon, Loader2 } from 'lucide-react';
 import { UploadSchema } from '@/lib/zod';
 import { BookUploadFormValues } from '@/app/types';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
@@ -22,13 +22,9 @@ import {upload} from "@vercel/blob/client";
 
 const UploadForm = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [isMounted, setIsMounted] = useState(false);
+    const [loadingMessage, setLoadingMessage] = useState('Uploading and processing...');
     const { userId } = useAuth();
     const router = useRouter()
-
-    useEffect(() => {
-        setIsMounted(true);
-    }, []);
 
     const form = useForm<BookUploadFormValues>({
         resolver: zodResolver(UploadSchema),
@@ -47,6 +43,7 @@ const UploadForm = () => {
         }
 
         setIsSubmitting(true);
+        setLoadingMessage('Checking your book details...');
 
         // PostHog -> Track Book Uploads...
 
@@ -69,6 +66,7 @@ const UploadForm = () => {
                 return;
             }
 
+            setLoadingMessage('Parsing PDF file...');
             const parsedPDF = await parsePDFFile(pdfFile);
 
             if(parsedPDF.content.length === 0) {
@@ -76,34 +74,38 @@ const UploadForm = () => {
                 return;
             }
 
+            setLoadingMessage('Uploading PDF file...');
             const uploadedPdfBlob = await upload(fileTitle, pdfFile, {
                 access: 'public',
-                handleUploadUrl: '/api/upload',
+                handleUploadUrl: '/api/uploads',
                 contentType: 'application/pdf'
             });
 
             let coverUrl: string;
 
             if(data.coverImage) {
+                setLoadingMessage('Uploading cover image...');
                 const coverFile = data.coverImage;
                 const uploadedCoverBlob = await upload(`${fileTitle}_cover.png`, coverFile, {
                     access: 'public',
-                    handleUploadUrl: '/api/upload',
+                    handleUploadUrl: '/api/uploads',
                     contentType: coverFile.type
                 });
                 coverUrl = uploadedCoverBlob.url;
             } else {
+                setLoadingMessage('Generating cover preview...');
                 const response = await fetch(parsedPDF.cover)
                 const blob = await response.blob();
 
                 const uploadedCoverBlob = await upload(`${fileTitle}_cover.png`, blob, {
                     access: 'public',
-                    handleUploadUrl: '/api/upload',
+                    handleUploadUrl: '/api/uploads',
                     contentType: 'image/png'
                 });
                 coverUrl = uploadedCoverBlob.url;
             }
 
+            setLoadingMessage('Saving book and starting synthesis...');
             const book = await createBook({
                 clerkId: userId,
                 title: data.title,
@@ -138,6 +140,7 @@ const UploadForm = () => {
             }
 
             form.reset();
+            toast.success("Book uploaded successfully!");
             router.push('/');
         } catch (error) {
             console.error(error);
@@ -148,11 +151,9 @@ const UploadForm = () => {
         }
     };
 
-    if (!isMounted) return null;
-
     return (
         <>
-            {isSubmitting && <LoadingOverlay />}
+            {isSubmitting && <LoadingOverlay title={loadingMessage} />}
 
             <div className="new-book-wrapper ">
                 <Form {...form}>
@@ -250,7 +251,14 @@ const UploadForm = () => {
 
                         {/* 6. Submit Button */}
                         <Button type="submit" className="form-btn" disabled={isSubmitting}>
-                            Begin Synthesis
+                            {isSubmitting ? (
+                                <span className="inline-flex items-center justify-center gap-2">
+                                    <Loader2 className="h-5 w-5 animate-spin" />
+                                    Beginning Synthesis...
+                                </span>
+                            ) : (
+                                'Begin Synthesis'
+                            )}
                         </Button>
                     </form>
                 </Form>

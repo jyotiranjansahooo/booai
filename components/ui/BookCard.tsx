@@ -22,7 +22,7 @@ const BookCard = ({ title, author, coverURL, slug }: BookCardProps) => {
                             width={133} 
                             height={200} 
                             className="book-card-cover"
-                            onLoadingComplete={() => setIsLoading(false)}
+                            onLoad={() => setIsLoading(false)}
                             priority={false}
                         />
                     </div>

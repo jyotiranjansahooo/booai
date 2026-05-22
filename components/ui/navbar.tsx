@@ -20,7 +20,7 @@ const Navbar = () => {
         <header className="w-full fixed z-50 bg-(--bg-primary)">
             <div className="wrapper navbar-height py-4 flex justify-between items-center">
                 <Link href="/" className="flex gap-0.5 items-center">
-                    <Image src="/assets/image.png" alt="Bookfied" width={42} height={26} />
+                    <Image src="/assets/image.png" alt="Bookfied" width={42} height={26} style={{ width: 42, height: 26 }} />
                     <span className="logo-text">Bookified</span>
                 </Link>
 
@@ -37,12 +37,12 @@ const Navbar = () => {
 
                     <div className="flex gap-7.5 items-center">
                         <Show when="signed-out">
-                            <SignInButton mode="modal" />
-                            <SignUpButton>
-                                <button className="bg-purple-700 text-white rounded-full font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 cursor-pointer">
-                                    Sign Up
-                                </button>
-                            </SignUpButton>
+                            <Link href="/sign-in" className="text-sm text-slate-700 hover:text-slate-900 transition">
+                                Sign In
+                            </Link>
+                            <Link href="/sign-up" className="bg-purple-700 text-white rounded-full font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 inline-flex items-center justify-center">
+                                Sign Up
+                            </Link>
                         </Show>
 
                         <Show when="signed-in">
