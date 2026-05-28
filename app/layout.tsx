@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { IBM_Plex_Serif, Mona_Sans } from "next/font/google";
 import { ClerkProvider, Show, SignInButton, SignUpButton, UserButton } from '@clerk/nextjs'
 import { Toaster } from "sonner";
-
+  import { ui } from '@clerk/ui'
 import Navbar from "@/components/ui/navbar";
 import "./globals.css";
 
@@ -35,7 +35,7 @@ export default function RootLayout({
 
       <html lang="en">
       <body className={`${ibmPlexSerif.variable} ${monaSans.variable} antialiased`}>
-        <ClerkProvider>
+        <ClerkProvider ui={ui}>
           <header className="flex justify-end items-center p-4 gap-4 h-16">
             <Show when="signed-out">
               <SignInButton />

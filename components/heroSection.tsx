@@ -36,6 +36,7 @@ const HeroSection = () => {
               sizes="(min-width: 1024px) 360px, 82vw"
               className="library-hero-image"
               loading="eager"
+              
             />
           </div>
 

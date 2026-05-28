@@ -20,6 +20,7 @@ const BookCard = ({ title, author, coverURL, slug }: BookCardProps) => {
                             src={coverURL} 
                             alt={title} 
                             fill
+                            unoptimized
                             sizes="(max-width: 768px) 42vw, (max-width: 1280px) 18vw, 190px"
                             className="book-card-cover"
                             onLoad={() => setIsLoading(false)}
