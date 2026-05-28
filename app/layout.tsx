@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { IBM_Plex_Serif, Mona_Sans } from "next/font/google";
 import { ClerkProvider, Show, SignInButton, SignUpButton, UserButton } from '@clerk/nextjs'
 import { Toaster } from "sonner";
-  import { ui } from '@clerk/ui'
+import { ui } from '@clerk/ui'
 import Navbar from "@/components/ui/navbar";
 import "./globals.css";
 

@@ -30,7 +30,7 @@ const Navbar = () => {
                         width={36}
                         height={36}
                         className="navbar-logo-image"
-                    />
+                    />  
                     <span className="logo-text">Bookified</span>
                 </Link>
 
