@@ -9,21 +9,20 @@ const BookCard = ({ title, author, coverURL, slug }: BookCardProps) => {
     const [isLoading, setIsLoading] = useState(true);
 
     return (
-        <Link href={`/books/${slug}`}>
+        <Link href={`/books/${slug}`} className="block h-full">
             <article className="book-card">
                 <figure className="book-card-figure">
-                    <div className="book-card-cover-wrapper relative">
+                    <div className="book-card-cover-wrapper">
                         {isLoading && (
                             <div className="absolute inset-0 bg-gray-200 rounded-lg animate-pulse z-10" />
                         )}
                         <Image 
                             src={coverURL} 
                             alt={title} 
-                            width={133} 
-                            height={200} 
+                            fill
+                            sizes="(max-width: 768px) 42vw, (max-width: 1280px) 18vw, 190px"
                             className="book-card-cover"
                             onLoad={() => setIsLoading(false)}
-                            priority={false}
                         />
                     </div>
 

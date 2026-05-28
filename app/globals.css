@@ -314,11 +314,49 @@
   .logo-text {
     @apply font-semibold text-xl hidden sm:block text-black;
   }
+  .navbar-logo-image {
+    @apply block h-9 w-9 shrink-0 rounded-lg object-contain;
+  }
   .nav-link-base {
     @apply text-base font-medium leading-6 transition-all;
   }
   .nav-link-active {
     @apply text-(--color-brand) border-b-2 border-(--color-brand) pb-0.5;
+  }
+  .nav-menu-button {
+    @apply inline-flex size-10 items-center justify-center rounded-lg border border-(--border-subtle) bg-white text-(--text-primary) transition-colors;
+    box-shadow: var(--shadow-soft-sm);
+
+    &:hover {
+      @apply bg-(--bg-secondary);
+    }
+  }
+  .nav-mobile-panel {
+    @apply absolute left-0 top-[var(--navbar-height)] w-full border-b border-(--border-subtle) bg-(--bg-primary);
+    box-shadow: var(--shadow-soft-md);
+  }
+  .nav-mobile-content {
+    @apply flex flex-col gap-1 py-3;
+  }
+  .nav-mobile-link {
+    @apply flex min-h-11 items-center rounded-lg px-3 text-base font-medium transition-colors;
+
+    &:hover {
+      @apply bg-white;
+    }
+  }
+  .nav-mobile-link-active {
+    @apply bg-white text-(--color-brand);
+  }
+  .nav-mobile-auth {
+    @apply mt-2 border-t border-(--border-subtle) pt-2;
+  }
+  .nav-mobile-sign-up {
+    @apply mt-2 flex min-h-11 items-center justify-center rounded-lg bg-(--color-brand) px-4 text-base font-semibold text-white transition-colors;
+
+    &:hover {
+      @apply bg-(--color-brand-hover);
+    }
   }
   .nav-btn {
     @apply text-base font-medium text-black hover:opacity-70 transition-opacity cursor-pointer;
@@ -393,13 +431,13 @@
     @apply min-h-[400px] max-h-[60vh] flex flex-col;
   }
   .vapi-cover-wrapper {
-    @apply relative shrink-0;
+    @apply relative shrink-0 w-[130px] sm:w-[162px] aspect-[2/3];
   }
   .vapi-cover-glow {
     @apply hidden;
   }
   .vapi-cover-image {
-    @apply relative w-[130px] h-[195px] sm:w-[162px] sm:h-[240px] rounded-lg object-cover;
+    @apply relative w-full h-full rounded-lg object-cover;
     box-shadow: 0px 10px 30px 0px rgba(0, 0, 0, 0.1);
   }
   .vapi-mic-wrapper {
@@ -502,10 +540,13 @@
     @apply text-sm md:text-base text-[#3d485e] leading-5 md:leading-6;
   }
   .library-hero-illustration {
-    @apply flex items-center justify-center mt-2 lg:hidden;
+    @apply flex items-center justify-center mt-2 lg:hidden w-full max-w-[360px];
   }
   .library-hero-illustration-desktop {
-    @apply hidden lg:flex items-center justify-center flex-1 max-w-[400px];
+    @apply hidden lg:flex items-center justify-center flex-1 max-w-[380px] min-w-[260px];
+  }
+  .library-hero-image {
+    @apply block w-full h-auto object-contain;
   }
   .library-cta-primary {
     @apply inline-flex items-center justify-center gap-2 bg-white text-(--text-primary) px-5 py-3 rounded-[10px] font-bold text-base md:text-xl transition-all w-full lg:w-fit;
@@ -662,10 +703,11 @@
     @apply absolute -left-1 top-2 bottom-2 w-3 bg-linear-to-r from-[#8B7355] to-[#A08060] rounded-l-md z-0;
   }
   .book-card-cover-wrapper {
-    @apply relative bg-white rounded-[14px] overflow-hidden flex items-center justify-center h-[205px] md:h-[240px];
+    @apply relative mx-auto bg-white rounded-[14px] overflow-hidden w-[132px] sm:w-[148px] md:w-[162px] aspect-[2/3];
+    box-shadow: var(--shadow-soft-sm);
   }
   .book-card-cover {
-    @apply w-auto h-[170px] md:h-[200px] object-cover rounded-lg;
+    @apply object-cover rounded-lg;
     box-shadow: var(--shadow-book);
   }
   .book-card-meta {
@@ -736,7 +778,7 @@
   }
 }
 
-/* Clerk Auth Button Overrides */
+/* Clerk Auth Button Overrides
 .cl-formButtonPrimary {
   border: none !important;
   box-shadow: var(--shadow-soft) !important;
@@ -748,7 +790,8 @@
 .cl-formButtonPrimary:hover {
   background-color: #3d485e !important;
   box-shadow: var(--shadow-soft-md) !important;
-}
+} */
+
 
 .cl-pricingTableCardDescription {
   margin-top: 12px !important;
@@ -837,13 +880,13 @@
   z-index: 100 !important;
 }
 
-/* Clerk checkout/drawer PRIMARY button text color fix */
+/* Clerk checkout/drawer PRIMARY button text color fix
 .cl-drawerRoot .cl-formButtonPrimary,
 .cl-modalContent .cl-formButtonPrimary,
 .cl-checkoutForm .cl-formButtonPrimary,
 [data-clerk-component] button[class*='formButtonPrimary'] {
   color: white !important;
-}
+} */
 
 /* Clerk checkout pay button - target primary/solid buttons */
 button[class*='cl-formButtonPrimary'],
@@ -965,4 +1008,3 @@ button[data-variant='unstyled'] *,
   max-width: 1000px;
   margin: 0 auto;
 }
-
