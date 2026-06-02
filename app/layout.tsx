@@ -1,24 +1,9 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Serif, Mona_Sans } from "next/font/google";
 import { ClerkProvider, Show, SignInButton, SignUpButton, UserButton } from '@clerk/nextjs'
 import { Toaster } from "sonner";
 import { ui } from '@clerk/ui'
 import Navbar from "@/components/ui/navbar";
 import "./globals.css";
-
-const ibmPlexSerif = IBM_Plex_Serif({
-  subsets: ["latin"],
-  variable: "--font-ibm-plex-serif",
-  weight: ["400", "500", "600", "700"],
-  display: "swap",
-});
-
-const monaSans = Mona_Sans({
-  subsets: ["latin"],
-  variable: "--font-mona-sans",
-  weight: ["400", "500", "600", "700"],
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   title: "BOOK MOUNTAIN",
@@ -34,7 +19,7 @@ export default function RootLayout({
   return (
 
       <html lang="en">
-      <body className={`${ibmPlexSerif.variable} ${monaSans.variable} antialiased`}>
+      <body className="antialiased">
         <ClerkProvider ui={ui}>
           <header className="flex justify-end items-center p-4 gap-4 h-16">
             <Show when="signed-out">

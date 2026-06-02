@@ -120,11 +120,12 @@ export async function parsePDFFile(file: File) {
       throw new Error('Could not get canvas context');
     }
 
-    // PDF.js types require a full render context, but the runtime accepts canvasContext + viewport.
-    await firstPage.render({
+    const renderContext = {
       canvasContext: context,
       viewport: viewport,
-    } as any).promise;
+    } as unknown as Parameters<typeof firstPage.render>[0];
+
+    await firstPage.render(renderContext).promise;
 
     // Convert canvas to data URL
     const coverDataURL = canvas.toDataURL('image/png');

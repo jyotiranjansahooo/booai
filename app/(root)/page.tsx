@@ -1,9 +1,11 @@
 import HeroSection from "@/components/heroSection"
 import BookCard from "@/components/ui/BookCard"
 import { getAllBooks } from "@/lib/actions/book.actions"
+import { connection } from "next/server"
 
 
 const page =async () => {
+  await connection()
   const bookresult=await getAllBooks()
   const books=bookresult.success ?bookresult.data?? []: []
   return (

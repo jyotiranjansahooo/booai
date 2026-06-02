@@ -11,17 +11,24 @@ import {
   type UseFormReturn,
   type ControllerFieldState,
   type ControllerRenderProps,
+  type FieldErrors,
   type UseFormStateReturn,
 } from "react-hook-form";
 import { cn } from "@/lib/utils";
 
 const FormFieldContext = React.createContext<string | undefined>(undefined);
 
-function getError<T extends FieldValues>(errors: any, path: string) {
+function getError<T extends FieldValues>(errors: FieldErrors<T>, path: string): unknown {
   return path
     .replace(/\[(\d+)\]/g, ".$1")
     .split(".")
-    .reduce<any>((obj, key) => (obj ? obj[key] : undefined), errors);
+    .reduce<unknown>(
+      (obj, key) =>
+        obj && typeof obj === "object" && key in obj
+          ? (obj as Record<string, unknown>)[key]
+          : undefined,
+      errors,
+    );
 }
 
 export function Form<T extends FieldValues>({
@@ -31,22 +38,22 @@ export function Form<T extends FieldValues>({
   return <FormProvider {...form}>{children}</FormProvider>;
 }
 
-export function FormField<T extends FieldValues>({
+export function FormField<T extends FieldValues, TName extends FieldPath<T>>({
   control,
   name,
   render,
 }: {
   control: Control<T>;
-  name: FieldPath<T>;
+  name: TName;
   render: (props: {
-    field: ControllerRenderProps<T, FieldPath<T>>;
+    field: ControllerRenderProps<T, TName>;
     fieldState: ControllerFieldState;
     formState: UseFormStateReturn<T>;
   }) => React.ReactElement;
 }) {
   return (
     <FormFieldContext.Provider value={name as string}>
-      <Controller control={control} name={name} render={render as any} />
+      <Controller control={control} name={name} render={render} />
     </FormFieldContext.Provider>
   );
 }
@@ -95,8 +102,12 @@ export function FormMessage({ className }: { className?: string }) {
 
   if (!fieldName) return null;
 
-  const error = getError(errors, fieldName)?.message;
-  if (!error) return null;
+  const error = getError(errors, fieldName);
+  const message =
+    error && typeof error === "object" && "message" in error
+      ? error.message
+      : undefined;
+  if (!message) return null;
 
-  return <p className={cn("text-sm text-destructive", className)}>{String(error)}</p>;
+  return <p className={cn("text-sm text-destructive", className)}>{String(message)}</p>;
 }
