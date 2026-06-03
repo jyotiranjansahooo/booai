@@ -4,6 +4,8 @@ import { Toaster } from "sonner";
 import { ui } from '@clerk/ui'
 import Navbar from "@/components/ui/navbar";
 import "./globals.css";
+import AppLoader from "@/components/AppLoader";
+
 
 export const metadata: Metadata = {
   title: "BOOK MOUNTAIN",
@@ -21,6 +23,7 @@ export default function RootLayout({
       <html lang="en">
       <body className="antialiased">
         <ClerkProvider ui={ui}>
+          <AppLoader>
           <header className="flex justify-end items-center p-4 gap-4 h-16">
             <Show when="signed-out">
               <SignInButton />
@@ -35,11 +38,12 @@ export default function RootLayout({
             </Show>
           </header>
           <Navbar/>
-          {children}
+            {children}
           <Toaster
             richColors
             position="top-right"
           />
+          </AppLoader>
         </ClerkProvider>
       </body>
     </html>

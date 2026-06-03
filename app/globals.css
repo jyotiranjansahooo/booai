@@ -1010,3 +1010,47 @@ button[data-variant='unstyled'] *,
   max-width: 1000px;
   margin: 0 auto;
 }
+
+
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-150%);
+  }
+
+  100% {
+    transform: translateX(250%);
+  }
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,.6),
+    transparent
+  );
+
+  animation: shimmer 2s linear infinite;
+}
+
+.shimmer-card {
+  position: relative;
+  overflow: hidden;
+  background: #e7dfcf;
+}
+
+.shimmer-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,.7),
+    transparent
+  );
+
+  animation: shimmer 1.8s infinite;
+}
