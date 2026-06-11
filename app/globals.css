@@ -326,7 +326,7 @@
     @apply text-(--color-brand) border-b-2 border-(--color-brand) pb-0.5;
   }
   .nav-menu-button {
-    @apply inline-flex size-10 items-center justify-center rounded-lg border border-(--border-subtle) bg-white text-(--text-primary) transition-colors;
+    @apply lg:hidden inline-flex size-10 items-center justify-center rounded-lg border border-(--border-subtle) bg-white text-(--text-primary) transition-colors;
     box-shadow: var(--shadow-soft-sm);
 
     &:hover {
@@ -1053,4 +1053,33 @@ button[data-variant='unstyled'] *,
   );
 
   animation: shimmer 1.8s infinite;
+}
+
+@keyframes shimmer {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(100%);
+  }
+}
+
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background: #e5e7eb;
+}
+
+.skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  animation: shimmer 1.6s infinite;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,0.6),
+    transparent
+  );
 }

@@ -65,7 +65,7 @@ const Navbar = () => {
 
                 <button
                     type="button"
-                    className="nav-menu-button md:hidden"
+                    className="nav-menu-button lg:hidden md:hidden"
                     aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
                     aria-expanded={isOpen}
                     onClick={() => setIsOpen((current) => !current)}

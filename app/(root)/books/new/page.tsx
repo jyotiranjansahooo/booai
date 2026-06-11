@@ -1,7 +1,10 @@
 import UploadForm from "@/components/UploadForm";
 import React from "react";
+import { Suspense } from "react";
+import UploadFormSkeleton from "@/components/loading/UploadFormSkeleton";
 
 const page = () => {
+
   return (
     <>
       <main className="wrapper container">
@@ -11,7 +14,9 @@ const page = () => {
             <p className="text-gray-600 text-lg">Upload your book in PDF format and let our AI analyze it for you. Once processed, you can chat with the AI about your book`s content.</p>
           </section>
 
-          <UploadForm/>
+          <Suspense fallback={<UploadFormSkeleton />}>
+            <UploadForm/>
+          </Suspense>
         </div>
       </main>
     </>

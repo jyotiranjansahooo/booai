@@ -20,6 +20,8 @@ import {useRouter} from "next/navigation";
 import {parsePDFFile} from "@/lib/utils";
 import {upload} from "@vercel/blob/client";
 
+
+
 const UploadForm = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [loadingMessage, setLoadingMessage] = useState('Uploading and processing...');
@@ -257,7 +259,7 @@ const UploadForm = () => {
                                     Beginning Synthesis...
                                 </span>
                             ) : (
-                                'Begin Synthesis'
+                                'Upload Book'
                             )}
                         </Button>
                     </form>

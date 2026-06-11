@@ -1,7 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 
-const HeroSection = () => {
+function delay(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+const HeroSection = async () => {
+  await delay(9000); // 3 seconds  
   return (
     
     <section className="wrapper mb-10 md:mb-16">
