@@ -11,6 +11,7 @@ import {cn} from "@/lib/utils";
 const navItems = [
     { label: "Library", href: "/" },
     { label: "Add New", href: "/books/new" },
+    { label: "About", href: "/about" },
     { label: "Pricing", href: "/subscriptions" },
 ]
 

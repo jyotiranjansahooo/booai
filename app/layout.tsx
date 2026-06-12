@@ -5,13 +5,86 @@ import { ui } from '@clerk/ui'
 import Navbar from "@/components/ui/navbar";
 import "./globals.css";
 import AppLoader from "@/components/AppLoader";
+import Footer from "@/components/ui/footer";
+
+
 
 
 export const metadata: Metadata = {
-  title: "BOOK MOUNTAIN",
-  description:
-    "BOOK with special power to tell and answer to your questions using voice and text.",
+title: {
+    default: "Bookified",
+    template: "%s | Bookified",
+  },  description:
+    "Upload books, chat with AI, listen to content, and discover knowledge through interactive conversations. Bookified turns reading into an intelligent experience.",
+
+icons: {
+  icon: "/bookifiedlogo.png",
+  shortcut: "/bookifiedlogo.png",
+  apple: "/bookifiedlogo.png",
+},
+
+  keywords: [
+    "AI books",
+    "book chat",
+    "AI reading assistant",
+    "PDF chatbot",
+    "voice reading",
+    "AI conversations",
+    "interactive books",
+    "knowledge assistant",
+    "Bookified",
+    "book AI",
+  ],
+
+  authors: [
+    {
+      name: "Bookified",
+    },
+  ],
+
+  creator: "Bookified",
+
+  metadataBase: new URL("https://bookified.ai"),
+
+  openGraph: {
+    title: "Bookified - Transform Books Into AI Conversations",
+    description:
+      "Turn books into intelligent conversations. Upload, read, listen, and learn with AI.",
+    url: "https://bookified.ai",
+    siteName: "Bookified",
+    locale: "en_US",
+    type: "website",
+    images: [
+      {
+        url: "/public/bookifiedlogo.png",
+        width: 1200,
+        height: 630,
+        alt: "Bookified AI Reading Platform",
+      },
+    ],
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "Bookified - AI Powered Reading",
+    description:
+      "Upload books, talk with AI, and unlock deeper understanding.",
+    images: ["/public/bookifiedlogo.png"],
+  },
+
+  robots: {
+    index: true,
+    follow: true,
+  },
+
+  category: "Education",
+
+ 
 };
+
+
+
+
 
 export default function RootLayout({
   children,
@@ -38,7 +111,8 @@ export default function RootLayout({
             </Show>
           </header>
           <Navbar/>
-            {children}
+          {children}
+          <Footer />
           <Toaster
             richColors
             position="top-right"
