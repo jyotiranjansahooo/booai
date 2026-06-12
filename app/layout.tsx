@@ -4,6 +4,7 @@ import { Toaster } from "sonner";
 import { ui } from '@clerk/ui'
 import Navbar from "@/components/ui/navbar";
 import "./globals.css";
+import Footer from "@/components/ui/footer";
 
 export const metadata: Metadata = {
   title: "BOOK MOUNTAIN",
@@ -36,6 +37,7 @@ export default function RootLayout({
           </header>
           <Navbar/>
           {children}
+          <Footer/>
           <Toaster
             richColors
             position="top-right"

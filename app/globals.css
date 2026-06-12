@@ -986,9 +986,7 @@ button[data-variant='unstyled'] *,
   border-radius: 9999px !important;
 }
 
-/* Add "Current Plan" indicator to active plan that doesn't have a button
-   Note: Hardcoded English text - if i18n support is needed, this should be
-   handled in JavaScript with translated strings rendered in the DOM. */
+
 .cl-pricingTableCard:first-child .cl-pricingTableCardContent::after {
   content: 'Your Current Plan';
   display: block;
@@ -1009,4 +1007,36 @@ button[data-variant='unstyled'] *,
   width: 100%;
   max-width: 1000px;
   margin: 0 auto;
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 25s linear infinite;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
 }
