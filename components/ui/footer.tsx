@@ -5,9 +5,9 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useRef } from "react";
 import Link from "next/link";
 
-import { BookOpen, Mail, ArrowRight } from "lucide-react";
+import { BookOpen, Mail } from "lucide-react";
 
-import { FaGithub, FaXTwitter, FaLinkedin } from "react-icons/fa6";
+import { FaGithub, FaXTwitter, FaLinkedin, FaInstagram } from "react-icons/fa6";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -43,6 +43,29 @@ export default function Footer() {
   { label: "Library", href: "/" },
   { label: "Pricing", href: "/pricing" },
   { label: "About", href: "/about" },
+];
+
+const socialLinks = [
+  {
+    icon: FaGithub,
+    url: "https://github.com/jyotiranjansahooo",
+  },
+  {
+    icon: FaXTwitter,
+    url: "https://x.com/jyotiranjansahooo",
+  },
+  {
+    icon: FaLinkedin,
+    url: "https://www.linkedin.com/in/jyoti-ranjan-sahoo-80bb6a36a?utm_source=share_via&utm_content=profile&utm_medium=member_android",
+  },
+  {
+    icon: FaInstagram,
+    url: "https://www.instagram.com/jr.sahooo?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
+  },
+  {
+    icon: Mail,
+    url: "mailto:jyotiranjansahooo@gmail.com",
+  },
 ];
 
   return (
@@ -172,41 +195,44 @@ export default function Footer() {
           "
         >
           <p className="text-sm text-[#2A1F16]/60">
-            © 2025 Bookified. Crafted for curious minds.
+            © 2026 Bookified. Crafted for curious minds.
           </p>
 
           <div className="flex gap-3">
-            {[FaGithub, FaXTwitter, FaLinkedin, Mail].map((Icon, i) => (
-              <button
-                key={i}
-                className="
-                  group
-                  flex
-                  h-11
-                  w-11
-                  items-center
-                  justify-center
-                  rounded-full
-                  border
-                  border-violet-500/20
-                  bg-white/50
-                  backdrop-blur
-                  transition-all
-                  duration-300
-                  hover:scale-110
-                  hover:border-violet-500
-                  hover:bg-violet-500
-                  hover:text-white
-                  hover:shadow-[0_0_20px_rgba(124,58,237,.35)]
-                "
-              >
-                <Icon
-                  size={18}
-                  className="transition-transform group-hover:rotate-12"
-                />
-              </button>
-            ))}
-          </div>
+  {socialLinks.map(({ icon: Icon, url }, i) => (
+    <a
+      key={i}
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="
+        group
+        flex
+        h-11
+        w-11
+        items-center
+        justify-center
+        rounded-full
+        border
+        border-violet-500/20
+        bg-white/50
+        backdrop-blur
+        transition-all
+        duration-300
+        hover:scale-110
+        hover:border-violet-500
+        hover:bg-violet-500
+        hover:text-white
+        hover:shadow-[0_0_20px_rgba(124,58,237,.35)]
+      "
+    >
+      <Icon
+        size={18}
+        className="transition-transform group-hover:rotate-12"
+      />
+    </a>
+  ))}
+</div>
         </div>
       </div>
     </footer>

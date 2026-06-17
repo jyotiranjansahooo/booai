@@ -93,6 +93,12 @@ export function useVapi(book: IBook) {
     const voice = book.persona || DEFAULT_VOICE;
 
     useEffect(() => {
+        if (!VAPI_API_KEY) {
+            setLimitError('Vapi is not configured. Check NEXT_PUBLIC_VAPI_API_KEY and NEXT_PUBLIC_ASSISTANT_ID.');
+            return;
+        }
+
+        const vapiInstance = getVapi();
         const getCurrentDuration = () => durationRef.current;
 
         const handlers = {
@@ -112,7 +118,7 @@ export function useVapi(book: IBook) {
 
                         // Check duration limit
                         if (newDuration >= maxDurationRef.current) {
-                            getVapi().stop();
+                            vapiInstance.stop();
                             setLimitError(
                                 `Session time limit (${Math.floor(
                                     maxDurationRef.current / SECONDS_PER_MINUTE,
@@ -241,7 +247,7 @@ export function useVapi(book: IBook) {
 
         // Register all handlers
         Object.entries(handlers).forEach(([event, handler]) => {
-            getVapi().on(event as keyof typeof handlers, handler as () => void);
+            vapiInstance.on(event as keyof typeof handlers, handler as () => void);
         });
 
         return () => {
@@ -249,7 +255,7 @@ export function useVapi(book: IBook) {
             if (sessionIdRef.current) {
                 const sessionId = sessionIdRef.current;
                 const durationSeconds = getCurrentDuration();
-                getVapi().stop();
+                vapiInstance.stop();
                 endVoiceSession(sessionId, durationSeconds).catch((err) =>
                     console.error('Failed to end voice session on unmount:', err),
                 );
@@ -257,7 +263,7 @@ export function useVapi(book: IBook) {
             }
             // Cleanup handlers
             Object.entries(handlers).forEach(([event, handler]) => {
-                getVapi().off(event as keyof typeof handlers, handler as () => void);
+                vapiInstance.off(event as keyof typeof handlers, handler as () => void);
             });
             if (timerRef.current) clearInterval(timerRef.current);
         };

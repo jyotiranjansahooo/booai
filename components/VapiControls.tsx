@@ -5,10 +5,12 @@ import useVapi from "@/app/hooks/useVapi";
 import {IBook} from "@/app/types";
 import Image from "next/image";
 import Transcript from "@/components/Transcript";
+import PdfViewer from "@/components/PdfViewer";
+import { Button } from "@/components/ui/button";
 import {toast} from "sonner";
 
 import {useRouter} from "next/navigation";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 
 const VapiControls = ({ book }: { book: IBook }) => {
     const { status, isActive, messages, currentMessage, currentUserMessage, duration, start, stop, clearError, limitError, isBillingError, maxDurationSeconds } = useVapi(book)
@@ -41,6 +43,7 @@ const VapiControls = ({ book }: { book: IBook }) => {
         }
     };
 
+    const [isPdfOpen, setIsPdfOpen] = useState(false);
     const statusDisplay = getStatusDisplay();
 
     return (
@@ -83,7 +86,7 @@ const VapiControls = ({ book }: { book: IBook }) => {
                             <p className="text-[#3d485e] font-medium">by {book.author}</p>
                         </div>
 
-                        <div className="flex flex-wrap gap-3">
+                        <div className="flex flex-wrap gap-3 items-center">
                             <div className="vapi-status-indicator">
                                 <span className={`vapi-status-dot ${statusDisplay.color}`} />
                                 <span className="vapi-status-text">{statusDisplay.label}</span>
@@ -98,6 +101,14 @@ const VapiControls = ({ book }: { book: IBook }) => {
                                     {formatDuration(duration)}/{formatDuration(maxDurationSeconds)}
                                 </span>
                             </div>
+
+                            <Button
+                                onClick={() => setIsPdfOpen(true)}
+                                className="h-9 px-3 text-sm font-medium"
+                                variant="secondary"
+                            >
+                                Read PDF
+                            </Button>
                         </div>
                     </div>
                 </div>
@@ -112,6 +123,10 @@ const VapiControls = ({ book }: { book: IBook }) => {
                 </div>
             </div>
             </div>
+
+            {isPdfOpen && (
+                <PdfViewer fileURL={book.fileURL} title={book.title} author={book.author} onClose={() => setIsPdfOpen(false)} />
+            )}
         </>
     )
 }
