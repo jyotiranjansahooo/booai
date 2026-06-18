@@ -313,9 +313,14 @@
   /* ===========================================
      NAVBAR COMPONENT
      =========================================== */
-  .logo-text {
+  /* .logo-text {
     @apply font-semibold text-xl hidden sm:block text-black;
-  }
+  } */
+.logo-text {
+  @apply hidden sm:block text-2xl font-black tracking-tight text-stone-800;
+}
+
+
   .navbar-logo-image {
     @apply block h-9 w-9 shrink-0 rounded-lg object-contain;
   }
@@ -536,7 +541,7 @@
     @apply flex-1 max-w-full lg:max-w-[400px] flex flex-col gap-3 lg:gap-4 items-center lg:items-start justify-center z-10;
   }
   .library-hero-title {
-    @apply text-[26px] md:text-3xl lg:text-4xl font-semibold text-black tracking-[-0.02em] leading-[32px] md:leading-[42px] font-serif;
+    @apply text-[26px] md:text-3xl lg:text-4xl font-semibold  text-black tracking-[-0.02em] leading-[32px] md:leading-[42px] ;
   }
   .library-hero-description {
     @apply text-sm md:text-base text-[#3d485e] leading-5 md:leading-6;

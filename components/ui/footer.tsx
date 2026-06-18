@@ -124,7 +124,7 @@ const socialLinks = [
               <BookOpen className="h-6 w-6 text-violet-600" />
 
               <span className="text-xl font-bold text-[#2A1F16]">
-                Bookified
+                BooAI
               </span>
             </div>
 
@@ -195,7 +195,7 @@ const socialLinks = [
           "
         >
           <p className="text-sm text-[#2A1F16]/60">
-            © 2026 Bookified. Crafted for curious minds.
+            © 2026 BooAI. Crafted for curious minds.
           </p>
 
           <div className="flex gap-3">

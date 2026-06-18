@@ -27,7 +27,7 @@ const FEATURES = [
   {
     icon: FiSearch,
     title: "Cross-Book Search",
-    text: "Ask a question once and Bookified scans your entire shelf, surfacing the exact passages that answer it.",
+    text: "Ask a question once and BooAI scans your entire shelf, surfacing the exact passages that answer it.",
   },
   {
     icon: FiTrendingUp,
@@ -52,7 +52,7 @@ const STEPS = [
   {
     icon: FiBookOpen,
     title: "Open any book",
-    text: "Pick a title from your shelf or import one of your own — Bookified meets you where your reading already lives.",
+    text: "Pick a title from your shelf or import one of your own — BooAI meets you where your reading already lives.",
   },
   {
     icon: FiCpu,
@@ -656,21 +656,21 @@ export default function About() {
 
       {/* HERO */}
       <section className="hero" ref={heroRef}>
-        <span className="eyebrow"> About Bookified</span>
+        <span className="eyebrow"> About BooAI</span>
         <h1 className="hero-title" ref={titleRef}>
-          {"BOOK".split("").map((ch, i) => (
+          {"BOOK *".split("").map((ch, i) => (
             <span className="letter" key={`b-${i}`}>
               {ch}
             </span>
           ))}
-          {"ified".split("").map((ch, i) => (
+          {"AI".split("").map((ch, i) => (
             <span className="letter accent" key={`i-${i}`}>
               {ch}
             </span>
           ))}
         </h1>
         <p className="hero-tagline">
-          Bookified transforms static books into interactive AI-powered learning experiences,
+          BooAI transforms static books into interactive AI-powered learning experiences,
           helping readers discover ideas faster than ever before.
         </p>
         <div className="hero-stamp-row">
@@ -699,7 +699,7 @@ export default function About() {
       {/* FEATURES */}
       <section className="features" ref={featuresRef}>
         <div>
-          <h2 className="section-heading reveal-heading">What makes Bookified different</h2>
+          <h2 className="section-heading reveal-heading">What makes BooAI different</h2>
           <p className="section-sub reveal-heading">
             We pair the depth of real books with the speed of AI, so you spend less time
             searching and more time understanding.
@@ -750,7 +750,7 @@ export default function About() {
         <div>
           <h2 className="section-heading reveal-heading">How it works</h2>
           <p className="section-sub reveal-heading">
-            From the first page to your last note, Bookified keeps the AI layer working quietly
+            From the first page to your last note, BooAI keeps the AI layer working quietly
             in the background.
           </p>
         </div>
@@ -784,7 +784,7 @@ export default function About() {
 
       {/* CTA */}
       <section className="cta" ref={ctaRef}>
-        <h2 className="cta-title">Start reading, smarter, with Bookified.</h2>
+        <h2 className="cta-title">Start reading, smarter, with BooAI.</h2>
         <motion.button
           className="cta-button"
           whileHover={{ scale: 1.06, backgroundColor: "#C1502E" }}

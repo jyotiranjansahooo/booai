@@ -7,6 +7,11 @@ import { Menu, X } from "lucide-react";
 import { Show, UserButton } from "@clerk/nextjs";
 import { useState } from "react";
 import {cn} from "@/lib/utils";
+import { Outfit } from "next/font/google";
+
+const outfit = Outfit({
+  subsets: ["latin"],
+});
 
 const navItems = [
     { label: "Library", href: "/" },
@@ -21,18 +26,24 @@ const Navbar = () => {
 
     const closeMenu = () => setIsOpen(false);
 
+
+
+
     return (
         <header className="w-full fixed top-0 z-50 bg-(--bg-primary) border-b border-(--border-subtle)">
             <div className="wrapper navbar-height py-4 flex justify-between items-center">
                 <Link href="/" className="flex gap-2 items-center" onClick={closeMenu}>
                     <Image
                         src="/assets/image.png"
-                        alt="Bookified"
+                        alt="BooAI"
                         width={36}
                         height={36}
                         className="navbar-logo-image"
                     />  
-                    <span className="logo-text">Bookified</span>
+<span className="logo-text" style={outfit.style}   >
+
+                    BooAI
+                </span>
                 </Link>
 
                 <nav className="hidden md:flex w-fit gap-7.5 items-center">

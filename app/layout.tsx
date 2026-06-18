@@ -12,8 +12,8 @@ import Footer from "@/components/ui/footer";
 
 export const metadata: Metadata = {
 title: {
-    default: "Bookified",
-    template: "%s | Bookified",
+    default: "BooAI",
+    template: "%s | BooAI",
   },  description:
     "Upload books, chat with AI, listen to content, and discover knowledge through interactive conversations. Bookified turns reading into an intelligent experience.",
 
@@ -38,16 +38,16 @@ icons: {
 
   authors: [
     {
-      name: "Bookified",
+      name: "BooAI",
     },
   ],
 
-  creator: "Bookified",
+  creator: "BooAI",
 
-  metadataBase: new URL("https://bookified.ai"),
+  metadataBase: new URL("https://booai.ai"),
 
   openGraph: {
-    title: "Bookified - Transform Books Into AI Conversations",
+    title: "BooAI - Transform Books Into AI Conversations",
     description:
       "Turn books into intelligent conversations. Upload, read, listen, and learn with AI.",
     url: "https://bookified.ai",
@@ -66,7 +66,7 @@ icons: {
 
   twitter: {
     card: "summary_large_image",
-    title: "Bookified - AI Powered Reading",
+    title: "BooAI - AI Powered Reading",
     description:
       "Upload books, talk with AI, and unlock deeper understanding.",
     images: ["/public/bookifiedlogo.png"],

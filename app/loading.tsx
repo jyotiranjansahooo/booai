@@ -376,7 +376,7 @@ export default function BookifiedLoading({
     { x: "65%", y: "40%", size: 2, delay: 2.0 },
   ];
 
-  const logoText = "bookified";
+  const logoText = "BooAI";
 
   return (
     <AnimatePresence>
