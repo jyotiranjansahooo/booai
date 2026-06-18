@@ -41,7 +41,7 @@ export default function Footer() {
 
   const footerLinks = [
   { label: "Library", href: "/" },
-  { label: "Pricing", href: "/pricing" },
+  { label: "Pricing", href: "/suscription" },
   { label: "About", href: "/about" },
 ];
 
