@@ -3,6 +3,7 @@ import { z } from "zod";
 export const UploadSchema = z.object({
   title: z.string().min(1, "Title is required"),
   author: z.string().min(1, "Author is required"),
+  genre: z.string().optional(),
   persona: z.string().optional(),
   pdfFile: z.any(),
   coverImage: z.any().optional(),

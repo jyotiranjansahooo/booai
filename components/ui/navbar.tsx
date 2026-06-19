@@ -14,7 +14,7 @@ const outfit = Outfit({
 });
 
 const navItems = [
-    { label: "Library", href: "/" },
+    { label: "Library", href: "/books/all" },
     { label: "Add New", href: "/books/new" },
     { label: "About", href: "/about" },
     { label: "Pricing", href: "/suscription" },

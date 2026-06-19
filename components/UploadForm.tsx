@@ -33,6 +33,7 @@ const UploadForm = () => {
         defaultValues: {
             title: '',
             author: '',
+            genre: '',
             persona: '',
             pdfFile: undefined,
             coverImage: undefined,
@@ -112,6 +113,7 @@ const UploadForm = () => {
                 clerkId: userId,
                 title: data.title,
                 author: data.author,
+                genre: data.genre,
                 persona: data.persona,
                 fileURL: uploadedPdfBlob.url,
                 fileBlobKey: uploadedPdfBlob.pathname,
@@ -232,7 +234,47 @@ const UploadForm = () => {
                             )}
                         />
 
-                        {/* 5. Voice Selector */}
+                        {/* 5. Genre Selection */}
+                        <FormField
+                            control={form.control}
+                            name="genre"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel className="form-label">Genre (Optional)</FormLabel>
+                                    <FormControl>
+                                        <select
+                                            className="form-input"
+                                            value={field.value as string}
+                                            onChange={field.onChange}
+                                            onBlur={field.onBlur}
+                                            name={field.name}
+                                            disabled={isSubmitting}
+                                        >
+                                            <option value="">Select a genre</option>
+                                            <option value="Fiction">Fiction</option>
+                                            <option value="Non-Fiction">Non-Fiction</option>
+                                            <option value="Mystery">Mystery</option>
+                                            <option value="Romance">Romance</option>
+                                            <option value="Science Fiction">Science Fiction</option>
+                                            <option value="Fantasy">Fantasy</option>
+                                            <option value="Thriller">Thriller</option>
+                                            <option value="Horror">Horror</option>
+                                            <option value="Biography">Biography</option>
+                                            <option value="History">History</option>
+                                            <option value="Self-Help">Self-Help</option>
+                                            <option value="Educational">Educational</option>
+                                            <option value="Poetry">Poetry</option>
+                                            <option value="Drama">Drama</option>
+                                            <option value="Adventure">Adventure</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+
+                        {/* 6. Voice Selector */}
                         <FormField
                             control={form.control}
                             name="persona"
@@ -251,7 +293,7 @@ const UploadForm = () => {
                             )}
                         />
 
-                        {/* 6. Submit Button */}
+                        {/* 7. Submit Button */}
                         <Button type="submit" className="form-btn" disabled={isSubmitting}>
                             {isSubmitting ? (
                                 <span className="inline-flex items-center justify-center gap-2">

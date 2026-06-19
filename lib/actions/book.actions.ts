@@ -8,21 +8,25 @@ import BookSegment from "@/app/database/models/book-segment.model";
 import mongoose from "mongoose";
 
 
-export const getAllBooks = async (search?: string) => {
+export const getAllBooks = async (search?: string, genre?: string) => {
     try {
         await connectToDatabase();
 
-        let query = {};
+        const query: Record<string, unknown> = {};
 
         if (search) {
             const escapedSearch = escapeRegex(search);
             const regex = new RegExp(escapedSearch, 'i');
-            query = {
+            Object.assign(query, {
                 $or: [
                     { title: { $regex: regex } },
                     { author: { $regex: regex } },
                 ]
-            };
+            });
+        }
+
+        if (genre) {
+            query.genre = genre;
         }
 
         const books = await Book.find(query).sort({ createdAt: -1 }).lean();
@@ -33,8 +37,9 @@ export const getAllBooks = async (search?: string) => {
         }
     } catch (e) {
         console.error('Error connecting to database', e);
+        const msg = e instanceof Error ? e.message : String(e);
         return {
-            success: false, error: e
+            success: false, error: msg
         }
     }
 }
@@ -59,8 +64,9 @@ export const checkBookExists = async (title: string) => {
         }
     } catch (e) {
         console.error('Error checking book exists', e);
+        const msg = e instanceof Error ? e.message : String(e);
         return {
-            exists: false, error: e
+            exists: false, error: msg
         }
     }
 }
@@ -117,9 +123,10 @@ export const createBook = async (data: CreateBook) => {
     } catch (e) {
         console.error('Error creating a book', e);
 
+        const msg = e instanceof Error ? e.message : String(e);
         return {
             success: false,
-            error: e,
+            error: msg,
         }
     }
 }
@@ -140,8 +147,9 @@ export const getBookBySlug = async (slug: string) => {
         }
     } catch (e) {
         console.error('Error fetching book by slug', e);
+        const msg = e instanceof Error ? e.message : String(e);
         return {
-            success: false, error: e
+            success: false, error: msg
         }
     }
 }
@@ -168,10 +176,10 @@ export const saveBookSegments = async (bookId: string, clerkId: string, segments
         }
     } catch (e) {
         console.error('Error saving book segments', e);
-
+        const msg = e instanceof Error ? e.message : String(e);
         return {
             success: false,
-            error: e,
+            error: msg,
         }
     }
 }
@@ -231,3 +239,25 @@ export const searchBookSegments = async (bookId: string, query: string, limit: n
         };
     }
 };
+
+export const getAllGenres = async () => {
+    try {
+        await connectToDatabase();
+
+        const genres = await Book.distinct('genre').lean();
+        const filteredGenres = genres.filter(genre => genre && genre.trim() !== '');
+
+        return {
+            success: true,
+            data: filteredGenres.sort()
+        }
+    } catch (e) {
+        console.error('Error fetching genres', e);
+        const msg = e instanceof Error ? e.message : String(e);
+        return {
+            success: false,
+            error: msg,
+            data: []
+        }
+    }
+}

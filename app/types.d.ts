@@ -16,6 +16,7 @@ export interface IBook extends Document {
     title: string;
     slug: string;
     author: string;
+    genre?: string;
     persona?: string;
     fileURL: string;
     fileBlobKey: string;
@@ -60,6 +61,7 @@ export interface CreateBook {
     clerkId: string;
     title: string;
     author: string;
+    genre?: string;
     persona?: string;
     fileURL: string;
     fileBlobKey: string;
