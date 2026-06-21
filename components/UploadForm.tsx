@@ -114,10 +114,12 @@ const UploadForm = () => {
                 }
             } else {
                 setLoadingMessage('Generating cover preview...');
-                const response = await fetch(parsedPDF.cover)
-                const blob = await response.blob();
-
                 try {
+                    const response = await fetch(parsedPDF.cover);
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch generated cover preview');
+                    }
+                    const blob = await response.blob();
                     const uploadedCoverBlob = await upload(`${fileTitle}_cover.png`, blob, {
                         access: 'public',
                         handleUploadUrl: '/api/uploads',
@@ -148,9 +150,6 @@ const UploadForm = () => {
 
             if(!book.success) {
                 toast.error(book.error as string || "Failed to create book");
-                if (book.isBillingError) {
-                    router.push("/subscriptions");
-                }
                 return;
             }
 
