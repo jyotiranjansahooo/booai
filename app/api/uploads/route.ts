@@ -43,8 +43,8 @@ export async function POST(request: Request): Promise<NextResponse> {
     } catch (e) {
         const message = e instanceof Error ? e.message : "An unknown error occurred";
         const status = message.includes('Unauthorized') ? 401 : 500;
-        console.error('Upload error', e);
-        const clientMessage = status === 401 ? 'Unauthorized' : 'Upload failed';
-        return NextResponse.json({ error: clientMessage }, { status });
+        console.error('Upload error', { message, error: e });
+        // Return the error message to the client to aid debugging (without leaking secrets)
+        return NextResponse.json({ error: message }, { status });
     }
 }

@@ -78,34 +78,59 @@ const UploadForm = () => {
             }
 
             setLoadingMessage('Uploading PDF file...');
-            const uploadedPdfBlob = await upload(fileTitle, pdfFile, {
-                access: 'public',
-                handleUploadUrl: '/api/uploads',
-                contentType: 'application/pdf'
-            });
+            let uploadedPdfBlob;
+            try {
+                uploadedPdfBlob = await upload(fileTitle, pdfFile, {
+                    access: 'public',
+                    handleUploadUrl: '/api/uploads',
+                    contentType: 'application/pdf'
+                });
+            } catch (err) {
+                console.error('PDF upload failed', err);
+                const msg = err instanceof Error ? err.message : 'PDF upload failed';
+                toast.error(msg || 'Failed to upload PDF. Try a smaller file.');
+                setIsSubmitting(false);
+                return;
+            }
 
             let coverUrl: string;
 
             if(data.coverImage) {
                 setLoadingMessage('Uploading cover image...');
                 const coverFile = data.coverImage;
-                const uploadedCoverBlob = await upload(`${fileTitle}_cover.png`, coverFile, {
-                    access: 'public',
-                    handleUploadUrl: '/api/uploads',
-                    contentType: coverFile.type
-                });
-                coverUrl = uploadedCoverBlob.url;
+                try {
+                    const uploadedCoverBlob = await upload(`${fileTitle}_cover.png`, coverFile, {
+                        access: 'public',
+                        handleUploadUrl: '/api/uploads',
+                        contentType: coverFile.type
+                    });
+                    coverUrl = uploadedCoverBlob.url;
+                } catch (err) {
+                    console.error('Cover upload failed', err);
+                    const msg = err instanceof Error ? err.message : 'Cover upload failed';
+                    toast.error(msg || 'Failed to upload cover image.');
+                    setIsSubmitting(false);
+                    return;
+                }
             } else {
                 setLoadingMessage('Generating cover preview...');
                 const response = await fetch(parsedPDF.cover)
                 const blob = await response.blob();
 
-                const uploadedCoverBlob = await upload(`${fileTitle}_cover.png`, blob, {
-                    access: 'public',
-                    handleUploadUrl: '/api/uploads',
-                    contentType: 'image/png'
-                });
-                coverUrl = uploadedCoverBlob.url;
+                try {
+                    const uploadedCoverBlob = await upload(`${fileTitle}_cover.png`, blob, {
+                        access: 'public',
+                        handleUploadUrl: '/api/uploads',
+                        contentType: 'image/png'
+                    });
+                    coverUrl = uploadedCoverBlob.url;
+                } catch (err) {
+                    console.error('Generated cover upload failed', err);
+                    const msg = err instanceof Error ? err.message : 'Cover upload failed';
+                    toast.error(msg || 'Failed to upload generated cover image.');
+                    setIsSubmitting(false);
+                    return;
+                }
             }
 
             setLoadingMessage('Saving book and starting synthesis...');
